@@ -26,12 +26,15 @@ import javax.validation.groups.Default;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.dionlan.primeira.Groups;
+import com.dionlan.primeira.core.validation.Groups;
+import com.dionlan.primeira.core.validation.Multiplo;
+import com.dionlan.primeira.core.validation.ValorZeroIncluiDescricao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome", descricaoObrigatoria = "Frete Grátis") //implementando a regra: se o valor da taxaFrete == 0, incluir a descrição obrigatória: Frete Grátis!
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -44,12 +47,13 @@ public class Restaurante {
 
 	//@NotNull não pode ser nulo
 	//@NotEmpty //não pode ter vazio ""
-	@NotBlank(message = "Nome obrigatório") //não pode ser nulo, vazio ou em branco "", "       "
+	@NotBlank //não pode ser nulo, vazio ou em branco "", "       "
 	@Column(nullable = false)
 	private String nome;
 
-	//@DecimalMin("0")
+	@NotNull
 	@PositiveOrZero
+	@Multiplo(numero = 5)
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
