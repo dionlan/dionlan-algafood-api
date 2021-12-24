@@ -1,3 +1,2 @@
 # dionlan-algafood-api
-Camada de apresentação que utiliza os serviços da API backend Java Spring Rest do curso Especialista Spring Rest da Escola Algaworks.
-Praticando a implementação do Angular Material, Angular Reactive Forms e Navegação por Rotas.
+Projeto backend que implementa serviços de um fastfood delivery semelhante ao iFood. Desenvolvido no curso Especialista Java Spring Boot ministrado pela Escola Algaworks.
