@@ -1,4 +1,5 @@
-/**package com.dionlan.primeira.core.validation;
+package com.dionlan.primeira.core.validation;
+/**package com.dionlan.primeira.core;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dionlan.primeira.domain.exception.CozinhaNaoEncontradaException;
 import com.dionlan.primeira.domain.exception.EntidadeEmUsoException;
@@ -27,6 +28,7 @@ public class CadastroCozinhaService {
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 
+	@Transactional
 	public Cozinha salvar(Cozinha cozinha) {
 		return cozinhaRepository.save(cozinha);
 	}
@@ -36,12 +38,11 @@ public class CadastroCozinhaService {
 	 * apresenta a mensagem de exceção de negócio, e a controller trata as requisições http do clients
 	 * @param id
 	 */
+	@Transactional
 	public void excluir(Long cozinhaId) {
 		try {
-
-			if (cozinhaId != null) {
-				cozinhaRepository.deleteById(cozinhaId);
-			}
+			cozinhaRepository.deleteById(cozinhaId);
+			cozinhaRepository.flush();
 
 		} catch (EmptyResultDataAccessException e ) {
 			throw new CozinhaNaoEncontradaException(cozinhaId);

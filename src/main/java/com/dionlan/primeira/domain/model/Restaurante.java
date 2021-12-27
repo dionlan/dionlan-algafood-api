@@ -1,7 +1,7 @@
 package com.dionlan.primeira.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +27,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.dionlan.primeira.core.validation.Groups;
-import com.dionlan.primeira.core.validation.Multiplo;
 import com.dionlan.primeira.core.validation.ValorZeroIncluiDescricao;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -53,7 +51,7 @@ public class Restaurante {
 
 	@NotNull
 	@PositiveOrZero
-	@Multiplo(numero = 5)
+	//@Multiplo(numero = 5) aceita valores multiplos de 5
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
@@ -69,25 +67,21 @@ public class Restaurante {
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 
-	@JsonIgnore
 	@Embedded //essa propriedade endereco é do tipo embedável, parte incorporada na entidade Restaurante
 	private Endereco endereco;
 
-	@JsonIgnore
 	@OneToMany (mappedBy = "restaurante") //terminado em *ToMany usa a estratégia Lazy Loading
 	private List<Produto> produtos = new ArrayList<>(); //lazy por padrão não faz o select e nem exibe na representação, mas se fizer o getPropriedade o JPA entende que deverá realizar a consulta para essa propriedade específica chamada
 
-	@JsonIgnore
 	@CreationTimestamp
 	@Column(name = "data_cadastro", nullable = false, columnDefinition = "datetime")
-	private LocalDateTime dataCadastro;
+	private OffsetDateTime dataCadastro;
 
-	@JsonIgnore
 	@UpdateTimestamp
 	@Column(name = "data_atualizacao", nullable = false, columnDefinition = "datetime")
-	private LocalDateTime dataAtualizacao;
+	private OffsetDateTime dataAtualizacao;
 
-	@JsonIgnore //se retirar essa anotação será utilizada as formas de pagamento que será apresentada na representação, logo será realizado os selects para todas as formas de pagamento
+	//se retirar essa anotação será utilizada as formas de pagamento que será apresentada na representação, logo será realizado os selects para todas as formas de pagamento
 	@ManyToMany //terminado em *ToMany usa a estratégia Lazy Loading. Não faz o select em forma_pagamento
 	@JoinTable(name = "restaurante_forma_pagamento",
 			joinColumns = @JoinColumn(name = "restaurante_id"),
