@@ -19,6 +19,11 @@ import com.dionlan.primeira.domain.service.CadastroCozinhaService;
  * @author Dionlan
  *
  */
+/**
+ * A partir de out/nov de 2019 a versão 2.2 do Spring Boot implementa o JUnit 5 com as novas anotações
+ * @author Dionlan
+ *
+ */
 @SpringBootTest
 class CadastroCozinhaIT_old {
 
