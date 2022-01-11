@@ -16,7 +16,7 @@
 	<description>Primeira API do Dionlan, seguindo o curso de Especialista REST da escola Algaworks.</description>
 	
 	<properties>
-		<java.version>12</java.version>
+		<java.version>17</java.version>
 	</properties>
 	
 	<dependencies>
